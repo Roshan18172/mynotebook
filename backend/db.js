@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const dbURI = 'mongodb://localhost:27017/Roshan';
+const dbURI = 'mongodb://localhost:27017/mynotebook?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false';
 
 const connectDB = async () => {
   try {
@@ -10,9 +10,5 @@ const connectDB = async () => {
     process.exit(1); // Exit process with failure
   }
 }
-// const connectDB=()=>{
-//     mongoose.connect(dbURI, ()=>{
-//         console.log('MongoDB connected successfully');
-//     })
-// }
+
 module.exports = connectDB;

@@ -20,4 +20,7 @@ const UserSchema = new Schema({
         default: Date.now
     }
 });
-module.exports = mongoose.model('User', UserSchema);
+const User= mongoose.model('User', UserSchema);
+// User.cleanIndexes(); // Clean up indexes to avoid duplicates
+module.exports = User;
+// This file defines the User model for the application.
