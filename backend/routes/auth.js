@@ -4,6 +4,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User'); // Import the User model
 const { body , validationResult } = require('express-validator');
+const fetchuser = require('../middleware/fetchUser'); // Middleware to fetch user details
 
 const JWT_SECRET="mysecretkey"; // Secret key for JWT
 //route 1 : create a new user using POST method "/api/auth/createuser"
@@ -83,6 +84,18 @@ router.post('/login', [
     }
 });
 
+//route 3 : Get logged in user details using POST method "/api/auth/getuser"
+router.post('/getuser',fetchuser, async (req, res) => {
+    // Get the user from the JWT token and return user details
+    try {
+        const userId = req.user.id; // Assuming req.user is set by a middleware that verifies the token
+        const user = await User.findById(userId).select("-password"); // Exclude password from response
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
+});
 
 module.exports = router;
 // This file defines the authentication routes for the application.
