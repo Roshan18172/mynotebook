@@ -1,22 +1,28 @@
 const mongoose = require('mongoose');
-// eslint-disable-next-line no-undef
+// This file defines the routes for handling notes in the application.
+// It includes routes for fetching all notes for a user.
 const { Schema } = mongoose;
 const NoteSchema = new Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  tag: {
-    type: String,
-    default: "General"
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    tag: {
+        type: String,
+        default: "General"
     },
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
-module.exports = mongoose.model('User', NoteSchema);
+module.exports = mongoose.model('Note', NoteSchema);

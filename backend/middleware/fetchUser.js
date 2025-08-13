@@ -3,7 +3,6 @@ const User = require('../models/User'); // Import the User model
 
 const JWT_SECRET="mysecretkey"; // Secret key for JWT
 
-
 const fetchUser = async (req, res, next) => {
     // Get the user from the JWT token and add it to req.user
     const token = req.header('auth-token');
