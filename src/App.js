@@ -6,6 +6,7 @@ import NavBar from './components/NavBar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
 import NoteState from './context/NoteState';
+import Alert from './components/Alert';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <NoteState>
       <Router>
         <NavBar />
+        <Alert msg="this is alert" />
         <div className="container my-3">
         <Routes>
           <Route path="/home" exact element={<Home/>} />

@@ -16,8 +16,8 @@ const NoteItem = (props) => {
                 <p className="card-text"><small className="text-muted">Created At: {new Date(note.createdAt).toLocaleString()}</small></p>
                 <p className="card-text"><small className="text-muted">ID: {note._id}</small></p>
                 <p className="card-text"><small className="text-muted">{new Date(note.createdAt).toLocaleDateString()}</small></p>
-                <button className="btn btn-primary my-2 mx-2">Edit Note</button>
-                <button className="btn btn-danger my-2 mx-2">Delete Note</button>
+                <button className="btn btn-primary my-2 mx-1">Edit Note <i className="bi bi-pencil-square "></i></button>
+                <button className="btn btn-danger my-2 mx-1">Delete Note <i className="bi bi-trash "></i></button>
             </div>
         </div>
 
