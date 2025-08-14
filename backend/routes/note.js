@@ -56,5 +56,29 @@ router.put('/updatenote/:id', fetchuser, async (req, res) => {
     res.json({ note });
 });
 
+//route 4: Delete a note using DELETE method "/api/note/deletenote/:id" login required
+router.delete('/deletenote/:id', fetchuser, async (req, res) => {
+    // const { title, description, tag } = req.body;
+    try {
+        // Delete a note by its ID
+        let note = await Note.findById(req.params.id);
+        if (!note) {
+            return res.status(404).send('Not Found');
+        }
+        // Check if the note belongs to the authenticated user
+        if (note.user.toString() !== req.user.id) {
+            return res.status(401).send('Not Allowed');
+        }
+        note = await Note.findByIdAndDelete(req.params.id);
+        res.json({ "Success": "Note has been deleted", note: note });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
+
+
+
+});
+
 module.exports = router;
 // This file defines the authentication routes for the application.
