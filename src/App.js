@@ -5,19 +5,25 @@ import About from './components/About';
 import NavBar from './components/NavBar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
+import NoteState from './context/NoteState';
+
 
 function App() {
   return (
-    <div className="App">
+    <>
+    <NoteState>
       <Router>
         <NavBar />
+        <div className="container my-3">
         <Routes>
-          <Route path="/" exact element={<Home/>} />
+          <Route path="/home" exact element={<Home/>} />
           <Route path="/about" element={<About/>} />
         </Routes>
+        </div>
       </Router>
-      <Footer mode="primary" />
-    </div>
+    </NoteState>
+      <Footer />
+    </>
   );
 }
 

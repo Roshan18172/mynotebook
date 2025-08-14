@@ -1,6 +1,6 @@
-function Footer(props) {
+function Footer() {
   return (
-      <footer className={`fixed-bottom bg-${props.mode} text-white`}> 
+      <footer className={`fixed-bottom bg-primary text-white`}> 
         <p className='text-center m-auto'>&copy;  {new Date().getFullYear()} My Notebook. All rights reserved.</p>
       </footer>
   );

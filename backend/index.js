@@ -12,5 +12,5 @@ app.use("/api/note", require('./routes/note')); // Use the notes routes
 app.use("/api/auth", require('./routes/auth')); // Use the auth routes
 
 app.listen(PORT, () => {    
-    console.log(`Server is running on port http://localhost:${PORT}`);
+    console.log(`myNotebook Server is running on port http://localhost:${PORT}`);
 }); // Start the server and listen on the specified port
