@@ -1,10 +1,16 @@
-import React from 'react'
-
+import React,{useContext, useState} from 'react'
+import NoteContext from '../context/noteContext'
 const NoteItem = (props) => {
     // This component will display individual note items
     // It will receive note data as props and render the note details
     // For now, we will leave it empty and implement it later
+    const context = useContext(NoteContext);
+    const { deleteNote } = context;
     const { note } = props;
+    const handleDelete=()=>{
+        deleteNote(note._id)
+        // props.showAlert("Note Deleted","Success")
+    }
     return (
         <div className="card h-100 shadow-sm">
             <div className="card-body">
@@ -16,11 +22,10 @@ const NoteItem = (props) => {
                 <p className="card-text"><small className="text-muted">Created At: {new Date(note.createdAt).toLocaleString()}</small></p>
                 <p className="card-text"><small className="text-muted">ID: {note._id}</small></p>
                 <p className="card-text"><small className="text-muted">{new Date(note.createdAt).toLocaleDateString()}</small></p>
-                <button className="btn btn-primary my-2 mx-1">Edit Note <i className="bi bi-pencil-square "></i></button>
-                <button className="btn btn-danger my-2 mx-1">Delete Note <i className="bi bi-trash "></i></button>
+                <button className="btn btn-primary my-2 mx-1" >Edit Note <i className="bi bi-pencil-square "></i></button>
+                <button className="btn btn-danger my-2 mx-1" onClick={handleDelete}>Delete Note <i className="bi bi-trash "></i></button>
             </div>
         </div>
-
     )
 }
 
