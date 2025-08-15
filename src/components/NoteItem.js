@@ -1,4 +1,4 @@
-import React,{useContext, useState} from 'react'
+import React,{useContext} from 'react'
 import NoteContext from '../context/noteContext'
 const NoteItem = (props) => {
     // This component will display individual note items
@@ -6,9 +6,13 @@ const NoteItem = (props) => {
     // For now, we will leave it empty and implement it later
     const context = useContext(NoteContext);
     const { deleteNote } = context;
-    const { note } = props;
+    const { note,updateNote } = props;
     const handleDelete=()=>{
         deleteNote(note._id)
+        // props.showAlert("Note Deleted","Success")
+    }
+    const handleUpdate=()=>{
+        updateNote(note)
         // props.showAlert("Note Deleted","Success")
     }
     return (
@@ -22,7 +26,7 @@ const NoteItem = (props) => {
                 <p className="card-text"><small className="text-muted">Created At: {new Date(note.createdAt).toLocaleString()}</small></p>
                 <p className="card-text"><small className="text-muted">ID: {note._id}</small></p>
                 <p className="card-text"><small className="text-muted">{new Date(note.createdAt).toLocaleDateString()}</small></p>
-                <button className="btn btn-primary my-2 mx-1" >Edit Note <i className="bi bi-pencil-square "></i></button>
+                <button className="btn btn-primary my-2 mx-1" onClick={handleUpdate} >Edit Note <i className="bi bi-pencil-square "></i></button>
                 <button className="btn btn-danger my-2 mx-1" onClick={handleDelete}>Delete Note <i className="bi bi-trash "></i></button>
             </div>
         </div>
