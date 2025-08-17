@@ -33,8 +33,8 @@ const Login = (props) => {
   };
 
   return (
-    <div className="container login my-5">
-      <div className="card m-auto align-item-center" style={{ width: "28rem" }}>
+    <div className="container login " style={{marginTop:"120px"}}>
+      <div className="card m-auto align-item-center my-5" style={{ width: "28rem" }}>
         <div className="card-header">Login</div>
         <div className="card-body">
           <form onSubmit={handleSubmit}>

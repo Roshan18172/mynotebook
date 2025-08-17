@@ -2,27 +2,32 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import NoteContext from '../context/noteContext';
 import NoteItem from './NoteItem';
 import AddNote from './AddNote';
+import { useNavigate } from 'react-router-dom';
 
 const Notes = (props) => {
+    let navigate = useNavigate();
     const context = useContext(NoteContext);
-    const { notes, getNotes,editNote } = context;
-    const [note, setNote] = useState({id:"", etitle: "", edescription: "", etag: "" })
+    const { notes, getNotes, editNote } = context;
+    const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
 
     useEffect(() => {
-        getNotes()  
+        if (localStorage.getItem('token'))
+            getNotes()
+        else
+            navigate("/login")
         // eslint-disable-next-line
     }, [])
     const updateNote = (currentNote) => {
         ref.current.click();
-        setNote({id:currentNote._id,etitle:currentNote.title,edescription:currentNote.description,etag:currentNote.tag})
+        setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag })
     }
     const ref = useRef(null);
     const refClose = useRef(null);
     const handleOnUpdate = () => {
-        console.log("updating note",note)
-        editNote(note.id,note.etitle,note.edescription,note.etag)
+        console.log("updating note", note)
+        editNote(note.id, note.etitle, note.edescription, note.etag)
         refClose.current.click();
-        props.showAlert("Note Updated Successfully.","success")
+        props.showAlert("Note Updated Successfully.", "success")
     }
 
     const onChange = (e) => {
@@ -60,7 +65,7 @@ const Notes = (props) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" ref={refClose} className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" disabled={note.etitle.length<5 || note.edescription.length<5} className="btn btn-primary" onClick={handleOnUpdate}>Update Note</button>
+                            <button type="button" disabled={note.etitle.length < 5 || note.edescription.length < 5} className="btn btn-primary" onClick={handleOnUpdate}>Update Note</button>
                         </div>
                     </div>
                 </div>

@@ -31,8 +31,8 @@ const SignUp = (props) => {
         setCredential({ ...credential, [e.target.name]: e.target.value });
     };
     return (
-        <div className="container-fluid ">
-            <div className="container signup my-3">
+        <div className="container-fluid "style={{marginTop:"120px"}}>
+            <div className="container signup my-3" >
                 <div className="card m-auto align-item-center" style={{ width: "28rem" }}>
                     <div className="card-header"> Sign Up </div>
                     <div className="card-body">
