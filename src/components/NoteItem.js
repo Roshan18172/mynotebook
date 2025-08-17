@@ -21,11 +21,11 @@ const NoteItem = (props) => {
                 <h5 className="card-title">{note.title}</h5>
                 <p className="card-text">{note.description}</p>
                 <p className="card-text"><small className="text-muted">{note.tag}</small></p>
-                <p className="card-text"><small className="text-muted">User ID: {note.user}</small></p>
-                <p className="card-text"><small className="text-muted">Version: {note.__v}</small></p>
+                {/* <p className="card-text"><small className="text-muted">User ID: {note.user}</small></p> */}
+                {/* <p className="card-text"><small className="text-muted">Version: {note.__v}</small></p> */}
                 <p className="card-text"><small className="text-muted">Created At: {new Date(note.createdAt).toLocaleString()}</small></p>
-                <p className="card-text"><small className="text-muted">ID: {note._id}</small></p>
-                <p className="card-text"><small className="text-muted">{new Date(note.createdAt).toLocaleDateString()}</small></p>
+                {/* <p className="card-text"><small className="text-muted">ID: {note._id}</small></p> */}
+                {/* <p className="card-text"><small className="text-muted">{new Date(note.createdAt).toLocaleDateString()}</small></p> */}
                 <button className="btn btn-primary my-2 mx-1" onClick={handleUpdate} >Edit Note <i className="bi bi-pencil-square "></i></button>
                 <button className="btn btn-danger my-2 mx-1" onClick={handleDelete}>Delete Note <i className="bi bi-trash "></i></button>
             </div>
