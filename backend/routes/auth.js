@@ -3,16 +3,17 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User'); // Import the User model
-const { body , validationResult } = require('express-validator');
+const { body, validationResult } = require('express-validator');
 const fetchuser = require('../middleware/fetchUser'); // Middleware to fetch user details
 
-const JWT_SECRET="mysecretkey"; // Secret key for JWT
+const JWT_SECRET = "mysecretkey"; // Secret key for JWT
 //route 1 : create a new user using POST method "/api/auth/createuser"
 router.post('/createuser', [
     body('email', 'Enter a valid email').isEmail(),
     body('name', 'Name must be at least 3 characters').isLength({ min: 3 }),
     body('password', 'Password must be at least 5 characters').isLength({ min: 5 })
-], async(req, res) => {
+], async (req, res) => {
+    let success = false;
     // Find the validation errors in this request
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -21,8 +22,8 @@ router.post('/createuser', [
     // Check if user with this mail already exists
     let user = await User.findOne({ email: req.body.email });
     if (user) {
-        return res.status(400).json({ error: "Sorry, a user with this email already exists" });
-    } 
+        return res.status(400).json({ success, error: "Sorry, a user with this email already exists" });
+    }
     // Hash the password before saving it to the database
     const salt = await bcrypt.genSalt(10);
     const secPassword = await bcrypt.hash(req.body.password, salt);
@@ -31,21 +32,22 @@ router.post('/createuser', [
         name: req.body.name,
         email: req.body.email,
         password: secPassword
-        })
-    .then(user => {
-        // Create a JWT token
-        const data = {
-            user: {
-                id: user.id
-            }
-        };
-        const authToken = jwt.sign(data, JWT_SECRET);
-        res.json({ authToken });
-        // res.json(user);
-    }).catch(err => {
-        console.error(err);
-        res.status(500).send('Server Error');
-    });     
+    })
+        .then(user => {
+            // Create a JWT token
+            const data = {
+                user: {
+                    id: user.id
+                }
+            };
+            const authToken = jwt.sign(data, JWT_SECRET);
+            success=true
+            res.json({ success, authToken });
+            // res.json(user);
+        }).catch(err => {
+            console.error(err);
+            res.status(500).send('Server Error');
+        });
 });
 
 //route 2 : Authenticate a user using POST method "/api/auth/login"
@@ -53,7 +55,7 @@ router.post('/login', [
     body('email', 'Enter a valid email').isEmail(),
     body('password', 'Password cannot be blank').exists()
 ], async (req, res) => {
-    let success=false
+    let success = false
     // Find the validation errors in this request
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -64,13 +66,13 @@ router.post('/login', [
         // Check if user exists
         let user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({success, error: "Please try to login with correct credentials" });
+            return res.status(400).json({ success, error: "Please try to login with correct credentials" });
         }
         // Compare the password with the hashed password
         const passwordCompare = await bcrypt.compare(password, user.password);
         if (!passwordCompare) {
-            success=false;
-            return res.status(400).json({success, error: "Please try to login with correct credentials" });
+            success = false;
+            return res.status(400).json({ success, error: "Please try to login with correct credentials" });
         }
         // Create a JWT token
         const data = {
@@ -79,8 +81,8 @@ router.post('/login', [
             }
         };
         const authToken = jwt.sign(data, JWT_SECRET);
-        success=true;
-        res.json({ success,authToken });
+        success = true;
+        res.json({ success, authToken });
     } catch (error) {
         console.error(error);
         res.status(500).send('Server Error');
@@ -88,7 +90,7 @@ router.post('/login', [
 });
 
 //route 3 : Get logged in user details using POST method "/api/auth/getuser"
-router.post('/getuser',fetchuser, async (req, res) => {
+router.post('/getuser', fetchuser, async (req, res) => {
     // Get the user from the JWT token and return user details
     try {
         const userId = req.user.id; // Assuming req.user is set by a middleware that verifies the token
