@@ -9,7 +9,7 @@ const NoteItem = (props) => {
     const { note,updateNote } = props;
     const handleDelete=()=>{
         deleteNote(note._id)
-        // props.showAlert("Note Deleted","Success")
+        props.showAlert("Note Updated Successfully.","success")
     }
     const handleUpdate=()=>{
         updateNote(note)
