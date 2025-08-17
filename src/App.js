@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
 import NoteState from './context/NoteState';
 import Alert from './components/Alert';
+import SignUp from './components/SignUp';
+import Login from './components/Login';
 
 
 function App() {
@@ -31,6 +33,8 @@ function App() {
             <Routes>
               <Route path="/home" exact element={<Home showAlert={showAlert} />} />
               <Route path="/about" element={<About />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
             </Routes>
           </div>
         </Router>
