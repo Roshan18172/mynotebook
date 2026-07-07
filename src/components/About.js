@@ -2,8 +2,8 @@ function About() {
   return (
     <div>
         <h2>About My Notebook</h2>
-        {/* <h2>About My Notebook</h2>
-        <p>{a.name}</p>
+        <h2>About My Notebook</h2>
+        <p></p>
         <p>This is a simple notebook application built with React.</p>
         <p>It allows users to create, view, and manage their notes efficiently.</p>
         <p>My Notebook is designed to be user-friendly and intuitive.</p>
@@ -56,7 +56,7 @@ function About() {
         <p>Keep exploring and discovering new ways to use your notes!</p>
         <p>Thank you for being a part of our community!</p> 
         <p>We appreciate your enthusiasm for note-taking!</p>
-        <p>Let's keep improving and innovating together!</p> */}
+        <p>Let's keep improving and innovating together!</p>
       
     </div>
   )
